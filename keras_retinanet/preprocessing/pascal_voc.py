@@ -51,6 +51,10 @@ voc_classes = {
 }
 
 
+voc_classes = {
+    'v'   : 0
+    }
+
 def _findNode(parent, name, debug_name = None, parse = None):
     if debug_name is None:
         debug_name = name
@@ -73,8 +77,8 @@ class PascalVocGenerator(Generator):
         set_name,
         classes=voc_classes,
         image_extension='.jpg',
-        skip_truncated=False,
-        skip_difficult=False,
+        skip_truncated=True,
+        skip_difficult=True,
         **kwargs
     ):
         self.data_dir             = data_dir
@@ -113,9 +117,10 @@ class PascalVocGenerator(Generator):
         return read_image_bgr(path)
 
     def __parse_annotation(self, element):
-        truncated = _findNode(element, 'truncated', parse=int)
-        difficult = _findNode(element, 'difficult', parse=int)
-
+        #truncated = _findNode(element, 'truncated', parse=int)
+        #difficult = _findNode(element, 'difficult', parse=int)
+        truncated=False
+        difficult=False
         class_name = _findNode(element, 'name').text
         if class_name not in self.classes:
             raise ValueError('class name \'{}\' not found in classes: {}'.format(class_name, list(self.classes.keys())))
@@ -124,10 +129,10 @@ class PascalVocGenerator(Generator):
         box[0, 4] = self.name_to_label(class_name)
 
         bndbox    = _findNode(element, 'bndbox')
-        box[0, 0] = _findNode(bndbox, 'xmin', 'bndbox.xmin', parse=float) - 1
-        box[0, 1] = _findNode(bndbox, 'ymin', 'bndbox.ymin', parse=float) - 1
-        box[0, 2] = _findNode(bndbox, 'xmax', 'bndbox.xmax', parse=float) - 1
-        box[0, 3] = _findNode(bndbox, 'ymax', 'bndbox.ymax', parse=float) - 1
+        box[0, 0] = _findNode(bndbox, 'xmin', 'bndbox.xmin', parse=float)
+        box[0, 1] = _findNode(bndbox, 'ymin', 'bndbox.ymin', parse=float)
+        box[0, 2] = _findNode(bndbox, 'xmax', 'bndbox.xmax', parse=float)
+        box[0, 3] = _findNode(bndbox, 'ymax', 'bndbox.ymax', parse=float)
 
         return truncated, difficult, box
 
