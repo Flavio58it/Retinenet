@@ -1,0 +1,1 @@
+/home2/noman/keras-retinanet$ keras_retinanet/bin/train.py --snapshot /home2/noman/keras-retinanet/snapshots/resnet50_pascal_01.h5 pascal /home2/noman/noman_output
