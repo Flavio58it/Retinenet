@@ -348,7 +348,7 @@ def main(args=None):
     # parse arguments
     #if args is None:
     #    args = sys.argv[1:]
-    args=['pascal','/content/hassan_output']
+    args=['pascal','/content/drive/Dataset/AerialLabeling/hassan_output']
     args = parse_args(args)
 
 
