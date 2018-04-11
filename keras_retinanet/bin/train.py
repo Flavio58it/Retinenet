@@ -346,9 +346,11 @@ def parse_args(args):
 
 def main(args=None):
     # parse arguments
-    if args is None:
-        args = sys.argv[1:]
+    #if args is None:
+    #    args = sys.argv[1:]
+    args=['pascal','/content/hassan_output']
     args = parse_args(args)
+
 
     # make sure keras is the minimum required version
     check_keras_version()
